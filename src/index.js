@@ -28,7 +28,8 @@ function fastbootExpressMiddleware(distPath, options) {
 
   return function(req, res, next) {
     let path = req.url;
-    fastboot.visit(path, { request: req, response: res })
+    let html = opts.onVisit && opts.onVisit(path)
+    fastboot.visit(path, { request: req, response: res, html })
       .then(success, failure);
 
     function success(result) {
